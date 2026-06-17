@@ -85,15 +85,10 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'localhost',
-        'USER': 'postgres',
-        'PASSWORD': 'postgree123',
-        'NAME': 'postgree',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -148,7 +143,7 @@ USE_TZ = True
 STATIC_URL = '/server/'
 MEDIA_URL = '/uploads/'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 CORS_ALLOW_ALL_ORIGINS = True
