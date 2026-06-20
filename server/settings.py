@@ -17,6 +17,7 @@ from corsheaders.defaults import default_headers
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
+import dj_database_url 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -25,10 +26,10 @@ import os
 SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    "yourusername.pythonanywhere.com",
+    "sabaaa.pythonanywhere.com",
 ]
 
 
@@ -93,9 +94,13 @@ DATABASES = {
         'PASSWORD': 'npg_hj4Qkb5MUucW',
         'HOST': 'ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech',
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
     }
 }
 
+print(DATABASES)
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
