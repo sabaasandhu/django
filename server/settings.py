@@ -26,10 +26,11 @@ import dj_database_url
 SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "sabaaa.pythonanywhere.com",
+    "your-app.up.railway.app",
 ]
 
 
@@ -100,7 +101,6 @@ DATABASES = {
     }
 }
 
-print(DATABASES)
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -163,15 +163,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://your-vercel-app.vercel.app",
-
+    "https://your-real-project.vercel.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
-    "https://your-vercel-app.vercel.app",
+    "https://your-real-project.vercel.app",
 ]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
