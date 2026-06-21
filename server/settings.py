@@ -26,7 +26,10 @@ import dj_database_url
 SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+
+
+ALLOWED_HOSTS = ["*"]
 
 # ALLOWED_HOSTS = [
 #     "django-production-126c.up.railway.app",
@@ -35,13 +38,12 @@ DEBUG = False
 #     "localhost",
 # ]
 
-ALLOWED_HOSTS = [
-    "django-production-126c.up.railway.app",
-]
+# ALLOWED_HOSTS = [
+#     "django-production-126c.up.railway.app",
+# ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://django-production-126c.up.railway.app",
-    "https://your-real-project.vercel.app",
 ]
 # Application definition
 
