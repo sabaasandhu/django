@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://django-production-126c.up.railway.app",
+    "https://your-real-project.vercel.app",
 ]
 # Application definition
 
@@ -173,9 +174,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://your-real-project.vercel.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://your-real-project.vercel.app",
-]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
