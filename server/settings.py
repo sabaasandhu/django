@@ -29,10 +29,11 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 DEBUG = False
 
 ALLOWED_HOSTS = [
+    "django-production-126c.up.railway.app",
     "sabaaa.pythonanywhere.com",
-    "your-app.up.railway.app",
+    "127.0.0.1",
+    "localhost",
 ]
-
 
 
 # Application definition
