@@ -37,16 +37,27 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 
 DEBUG = True
 
-# ALLOWED_HOSTS
-ALLOWED_HOSTS = ['*'] 
+ALLOWED_HOSTS = [
+    "django-production-126c.up.railway.app",
+    "127.0.0.1",
+    "localhost",
+    ".vercel.app",
+    "react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
+    "react-1z36.vercel.app",
+]
 
-# CSRF_TRUSTED_ORIGINS
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    "https://django-production-126c.up.railway.app",
+    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
+    "https://react-1z36.vercel.app",
+]
 
 # CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://react-1z36.vercel.app",  # ✅ Apna Vercel URL
+    "http://localhost:3000",
+    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
+    "https://react-1z36.vercel.app",
 ]
 # Application definition
 
