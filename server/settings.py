@@ -202,7 +202,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
 
