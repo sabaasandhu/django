@@ -35,16 +35,26 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 #     "localhost",
 # ]
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    "django-production-126c.up.railway.app",
-    "127.0.0.1",
-    "localhost",
+# ALLOWED_HOSTS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",  # ✅ Apna Vercel URL
+    "https://react-1z36.vercel.app",  # ✅ Agar yeh bhi use kar rahe hain
 ]
 
+# CSRF_TRUSTED_ORIGINS
 CSRF_TRUSTED_ORIGINS = [
     "https://django-production-126c.up.railway.app",
+    "https://react-1z36.vercel.app",  # ✅ Apna Vercel URL
+]
+
+# CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://react-1z36.vercel.app",  # ✅ Apna Vercel URL
 ]
 # Application definition
 
@@ -195,10 +205,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://your-real-project.vercel.app",
-]
 
 
 # Default primary key field type
