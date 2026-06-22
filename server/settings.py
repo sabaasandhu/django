@@ -35,10 +35,12 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 #     "localhost",
 # ]
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "django-production-126c.up.railway.app",
+    "127.0.0.1",
+    "localhost",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -89,6 +91,8 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'server.wsgi.application'
 
 
@@ -108,12 +112,23 @@ WSGI_APPLICATION = 'server.wsgi.application'
 #         }
 #     }
 # }
+# Purani settings ko comment karein
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
+
+# Yeh nayi settings add karein (Hardcoded Neon URL)
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
     )
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

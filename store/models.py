@@ -209,3 +209,6 @@ class CartItem(models.Model):
         elif self.unstitch:
             return f"{self.unstitch.name} x {self.quantity}"
         return "Cart Item"
+class Meta:
+        db_table = 'store_products'  # Database table ka exact naam
+        managed = False  # Django table ko modify nahi karega
