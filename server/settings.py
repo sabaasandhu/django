@@ -123,11 +123,17 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Yeh nayi settings add karein (Hardcoded Neon URL)
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_hj4Qkb5MUucW',
+        'HOST': 'ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
+    }
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
