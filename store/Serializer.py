@@ -6,10 +6,16 @@ from store.models import Products
 from decimal import Decimal 
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    
     class Meta:
         model = ProductImage
         fields = ['image']
-
+    
+    def get_image(self, obj):
+        if obj.image:
+            return obj.image.url  # ✅ URL method use karein
+        return None
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
