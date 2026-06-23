@@ -55,7 +55,6 @@ CSRF_TRUSTED_ORIGINS = [
 # CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://localhost:3000",
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
 ]

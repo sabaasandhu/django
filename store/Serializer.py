@@ -14,7 +14,11 @@ class ProductImageSerializer(serializers.ModelSerializer):
     
     def get_image(self, obj):
         if obj.image:
-            return obj.image.url  # ✅ URL method use karein
+            # ✅ Ensure full URL
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
         return None
 
 class ProductSerializer(serializers.ModelSerializer):
