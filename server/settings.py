@@ -34,13 +34,20 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 #     "127.0.0.1",
 #     "localhost",
 # ]
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*',
+    "web-production-d7f28a.up.railway.app",
+    "127.0.0.1",
+    "localhost",
+    ".vercel.app",
+    "react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
+    "react-1z36.vercel.app",
 ]
+
 CSRF_TRUSTED_ORIGINS = [
-    "https://django-production-02ca.up.railway.app",
+    "https://web-production-d7f28a.up.railway.app",
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
 ]
@@ -200,6 +207,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -238,3 +248,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),
 }
+
+
