@@ -172,14 +172,16 @@ def fetchAllsliderImages(request):
 @api_view(['GET'])
 def fetchCategories(request, category): 
     productbycat = Products.objects.filter(category=category)
+    unstitchbycat = Unstitchs.objects.filter(category__iexact=category)
     serializer = ProductSerializer(productbycat, many=True)
+    unstitch_serializer = UnstitchsSerializer(unstitchbycat, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def fetchAllUnstitchsImages(request):
     unstitchs = Unstitchs.objects.all()
     serializer = UnstitchsSerializer(unstitchs, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data + unstitch_serializer.data)
 
 @api_view(['GET'])
 def fetchUnstitchDetails(request, id):
