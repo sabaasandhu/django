@@ -23,7 +23,8 @@ import dj_database_url
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4'
+# SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -35,28 +36,37 @@ SECRET_KEY = 'django-insecure--4^j2f*1dro3t)6g!0p!trx6l-o2ekduvdp9@qf@ado_k@+m^4
 #     "localhost",
 # ]
 
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = [
-    "web-production-d7f28a.up.railway.app",
+    "web-production-d7f28a.up.railway.app",  # Railway (purana)
     "127.0.0.1",
     "localhost",
     ".vercel.app",
     "react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "react-1z36.vercel.app",
+    ".onrender.com",  # Render (naya)
 ]
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-d7f28a.up.railway.app",
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
 ]
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME')}")
 # CORS_ALLOWED_ORIGINS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
 ]
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    CORS_ALLOWED_ORIGINS.append(f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME')}")
 # Application definition
 
 INSTALLED_APPS = [
@@ -136,17 +146,14 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Yeh nayi settings add karein (Hardcoded Neon URL)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
-        'USER': 'neondb_owner',
-        'PASSWORD': 'npg_hj4Qkb5MUucW',
-        'HOST': 'ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-        }
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get(
+            'DATABASE_URL',
+            'postgresql://neondb_owner:npg_hj4Qkb5MUucW@ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require'
+        ),
+        conn_max_age=0,
+        ssl_require=True
+    )
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
