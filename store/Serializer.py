@@ -6,10 +6,18 @@ from store.models import Products
 from decimal import Decimal 
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = ProductImage
         fields = ['image']
 
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        return obj.image.url          
+
+        
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
@@ -19,9 +27,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class SliderImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = SliderImage
         fields = ['image']
+
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        return obj.image.url
 
 
 class SliderSerializer(serializers.ModelSerializer):
@@ -32,10 +47,16 @@ class SliderSerializer(serializers.ModelSerializer):
 
 
 class UnstitchsImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = UnstitchsImage
         fields = ['image']
 
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        return obj.image.url
 
 class UnstitchsSerializer(serializers.ModelSerializer):
     images = UnstitchsImageSerializer(many=True, read_only=True)
