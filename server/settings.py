@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',  # ✅ یہ app بھی شامل کریں
-    'cloudinary_storage',   # ← ye add karo
+    # 'cloudinary_storage',  
     'cloudinary',   
     'django.contrib.admin',
     'django.contrib.auth',
@@ -87,7 +87,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
