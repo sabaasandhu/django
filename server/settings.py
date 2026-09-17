@@ -118,7 +118,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'neondb',
 #         'USER': 'neondb_owner',
-#         'PASSWORD': 'npg_hj4Qkb5MUucW',
+#        
 #         'HOST': 'ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech',
 #         'PORT': '5432',
 #         'OPTIONS': {
@@ -141,7 +141,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'neondb',
         'USER': 'neondb_owner',
-        'PASSWORD': 'npg_hj4Qkb5MUucW',
+        
         'HOST': 'ep-crimson-pine-at808oxx-pooler.c-9.us-east-1.aws.neon.tech',
         'PORT': '5432',
         'OPTIONS': {
