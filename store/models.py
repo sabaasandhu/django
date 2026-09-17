@@ -8,7 +8,9 @@ class ProductImage(models.Model):
       product = models.ForeignKey("Products", on_delete=models.CASCADE, related_name="images")
       image = models.ImageField(null=True, blank=True)
       def __str__(self):
+       if self.product:
         return f"image for {self.product.name}"
+       return f"image id={self.id}"
       
       
 class Products(models.Model):
@@ -27,13 +29,15 @@ class Products(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.brand + " " + self.name  # ✅ this will work if 'title' is defined
+     return f"{self.brand or ''} {self.name or ''}".strip() or f"Product {self.id}"
 
 class SliderImage(models.Model):
       slider = models.ForeignKey("Sliders", on_delete=models.CASCADE, related_name="images")
       image = models.ImageField(null=True, blank=True)
       def __str__(self):
+       if self.slider:
         return f"image for {self.slider.name}"
+       return f"image id={self.id}"
 
 class Sliders(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -154,7 +158,9 @@ class UnstitchsImage(models.Model):
       unstitchs = models.ForeignKey("Unstitchs", on_delete=models.CASCADE, related_name="images")
       image = models.ImageField(null=True, blank=True)
       def __str__(self):
-        return f"image for {self.unstitchs.name}"
+        if self.unstitchs:
+            return f"image for {self.unstitchs.name}"
+        return f"image (no unstitch) id={self.id}"
       
 class Unstitchs(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -209,6 +215,3 @@ class CartItem(models.Model):
         elif self.unstitch:
             return f"{self.unstitch.name} x {self.quantity}"
         return "Cart Item"
-class Meta:
-        db_table = 'store_products'  # Database table ka exact naam
-        managed = False  # Django table ko modify nahi karega

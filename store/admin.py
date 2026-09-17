@@ -64,12 +64,11 @@ class OrderAdmin(admin.ModelAdmin):
     
     # ✅ Keep WhatsApp action but without whatsapp_sent field reference
     actions = ['send_whatsapp_notification']
-    
+
     fieldsets = (
-        ('Order Information', {
-            'fields': ('order_number', 'user', 'order_status', 'payment_method', 'payment_status')
-            # ❌ Remove 'whatsapp_sent' from here
-        }),
+    ('Order Information', {
+        'fields': ('order_number', 'user', 'order_status', 'payment_method', 'payment_status', 'whatsapp_sent')
+    }),
         ('Customer Details', {
             'fields': ('customer_name', 'customer_email', 'customer_phone')
         }),
@@ -100,13 +99,10 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Products, ProductAdmin)
-admin.site.register(ProductImage)
 admin.site.register(ShippingDetails)
 admin.site.register(Reviews)
 admin.site.register(Sliders, SliderAdmin)
-admin.site.register(SliderImage)
 admin.site.register(Unstitchs, UnstitchAdmin)
-admin.site.register(UnstitchsImage)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(CartItem)
 admin.site.register(Order, OrderAdmin)  
