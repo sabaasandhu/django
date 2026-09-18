@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import requests
 import json
+from django.utils.html import format_html
 # from django.contrib import messages
 
 
@@ -55,20 +56,18 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    # ❌ Remove whatsapp_sent from here until you add it to model
-    list_display = ['order_number', 'customer_name', 'total_price', 'order_status', 'created_at','whatsapp_sent']
-    list_filter = ['order_status', 'payment_method', 'created_at','whatsapp_sent']
+    list_display = ['order_number', 'customer_name', 'total_price', 'order_status', 'created_at', 'whatsapp_sent']
+    list_filter = ['order_status', 'payment_method', 'created_at', 'whatsapp_sent']
     search_fields = ['order_number', 'customer_name', 'customer_email', 'customer_phone']
     inlines = [OrderItemInline]
-    readonly_fields = ['order_number', 'created_at', 'items_price', 'tax_price', 'shipping_price', 'total_price']
+    readonly_fields = ['order_number', 'created_at', 'items_price', 'shipping_price', 'total_price', 'whatsapp_link']
     
-    # ✅ Keep WhatsApp action but without whatsapp_sent field reference
     actions = ['send_whatsapp_notification']
 
     fieldsets = (
-    ('Order Information', {
-        'fields': ('order_number', 'user', 'order_status', 'payment_method', 'payment_status', 'whatsapp_sent')
-    }),
+        ('Order Information', {
+            'fields': ('order_number', 'user', 'order_status', 'payment_method', 'payment_status', 'whatsapp_sent')
+        }),
         ('Customer Details', {
             'fields': ('customer_name', 'customer_email', 'customer_phone')
         }),
@@ -76,23 +75,46 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('shipping_address', 'shipping_city', 'shipping_state', 'shipping_postal_code', 'shipping_country')
         }),
         ('Pricing', {
-            'fields': ('items_price', 'tax_price', 'shipping_price', 'total_price')
+            'fields': ('items_price', 'shipping_price', 'total_price')
+        }),
+        ('Quick Actions', {
+            'fields': ('whatsapp_link',)
         }),
         ('Timestamps', {
             'fields': ('created_at', 'paid_at', 'delivered_at')
         }),
     )
-    
+
+    def whatsapp_link(self, obj):
+        if obj.customer_phone:
+            phone = obj.customer_phone.replace(" ", "").replace("-", "")
+            if phone.startswith("0"):
+                phone = "92" + phone[1:]
+            
+            message = f"""Order Confirmed! ✅
+Order #: {obj.order_number}
+Customer: {obj.customer_name}
+Amount: Rs. {obj.total_price}
+Delivery: 3-5 days
+
+Thank you for shopping!"""
+            
+            url = f"https://wa.me/{phone}?text={message}"
+            return format_html(
+                '<a class="button" href="{}" target="_blank" style="background:#25D366; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; font-weight:bold;">📱 Send WhatsApp</a>',
+                url
+            )
+        return "No phone number"
+
+    whatsapp_link.short_description = "WhatsApp"
+
     def send_whatsapp_notification(self, request, queryset):
-        """
-        WhatsApp bhejne ka option
-        """
         for order in queryset:
             print(f"📱 WhatsApp would be sent to: {order.customer_phone}")
             print(f"   Order: {order.order_number}")
         
         self.message_user(request, f"Test WhatsApp for {queryset.count()} orders")
-    
+
     send_whatsapp_notification.short_description = "📱 Send WhatsApp"
 
 
