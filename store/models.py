@@ -83,7 +83,6 @@ class Order(models.Model):
     
     # Pricing
     items_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    tax_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     shipping_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 

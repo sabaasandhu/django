@@ -169,7 +169,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'id', 'order_number', 'user', 'customer_name', 'customer_email', 
             'customer_phone', 'shipping_address', 'shipping_city', 'shipping_state',
             'shipping_postal_code', 'shipping_country', 'order_status', 
-            'payment_method', 'payment_status', 'items_price', 'tax_price',
+            'payment_method', 'payment_status', 'items_price',
             'shipping_price', 'total_price', 'created_at', 'paid_at', 
             'delivered_at', 'items'
         ]
@@ -186,13 +186,13 @@ class CreateOrderSerializer(serializers.ModelSerializer):
             'customer_name', 'customer_email', 'customer_phone',
             'shipping_address', 'shipping_city', 'shipping_state',
             'shipping_postal_code', 'shipping_country', 'payment_method',
-            'items_price', 'tax_price', 'shipping_price', 'total_price',
+            'items_price', 'shipping_price', 'total_price',
             'items'
         ]
     
     def validate(self, data):
         # Ensure Decimal values
-        for field in ['items_price', 'tax_price', 'shipping_price', 'total_price']:
+        for field in ['items_price','shipping_price', 'total_price']:
             if field in data:
                 if isinstance(data[field], float):
                     data[field] = Decimal(str(data[field]))
