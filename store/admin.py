@@ -52,18 +52,29 @@ except admin.sites.NotRegistered:
 class OrderItemInline(admin.TabularInline):
     model = OrderItems
     extra = 0
-    readonly_fields = ['product_name', 'product_price', 'quantity', 'item_total']
+    readonly_fields = ['product_name', 'product_price', 'quantity']
+    can_delete = False
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number', 'customer_name', 'total_price', 'order_status', 'created_at', 'whatsapp_sent']
+    list_display = [
+        'order_number',
+        'customer_name',
+        'customer_phone',
+        'customer_email',
+        'shipping_city',
+        'total_price',
+        'order_status',
+        'payment_method',
+        'created_at',
+        'whatsapp_sent',
+    ]
     list_filter = ['order_status', 'payment_method', 'created_at', 'whatsapp_sent']
     search_fields = ['order_number', 'customer_name', 'customer_email', 'customer_phone']
     inlines = [OrderItemInline]
-    readonly_fields = ['order_number', 'created_at', 'items_price', 'shipping_price', 'total_price', 'whatsapp_link']
-    
+    readonly_fields = ['order_number', 'created_at', 'items_price', 'tax_price', 'shipping_price', 'total_price']
     actions = ['send_whatsapp_notification']
-
+    
     fieldsets = (
         ('Order Information', {
             'fields': ('order_number', 'user', 'order_status', 'payment_method', 'payment_status', 'whatsapp_sent')
@@ -75,10 +86,7 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('shipping_address', 'shipping_city', 'shipping_state', 'shipping_postal_code', 'shipping_country')
         }),
         ('Pricing', {
-            'fields': ('items_price', 'shipping_price', 'total_price')
-        }),
-        ('Quick Actions', {
-            'fields': ('whatsapp_link',)
+            'fields': ('items_price', 'tax_price', 'shipping_price', 'total_price')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'paid_at', 'delivered_at')
