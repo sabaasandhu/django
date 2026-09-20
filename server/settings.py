@@ -87,7 +87,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
