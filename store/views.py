@@ -74,40 +74,26 @@ Thank you for shopping!
 
 
 def send_order_email(order):
-    """Order confirmation email - HAMESHA bhejo"""
+    """
+    Fallback email function
+    """
     try:
         subject = f"Order Confirmed - {order.order_number}"
         message = f"""
-Dear {order.customer_name},
-
-Your order #{order.order_number} has been confirmed!
-
-Total Amount: Rs. {order.total_price}
-Order Status: {order.get_order_status_display()}
-
-Your order will be delivered in 3-5 working days.
-
-Thank you for shopping with us!
-
-Regards,
-Sabanosh Team
+        Dear {order.customer_name},
+        
+        Your order #{order.order_number} has been confirmed!
+        
+        Total Amount: Rs. {order.total_price}
+        Order Status: {order.get_order_status_display()}
+        
+        Your order will be delivered in 3-5 working days.
+        
+        Thank you for shopping with us!
+        
+        Regards,
+        Sabanosh Team
         """
-        
-        from_email = settings.EMAIL_HOST_USER or 'noreply@sabanosh.com'
-        
-        send_mail(
-            subject,
-            message,
-            from_email,
-            [order.customer_email],
-            fail_silently=True,
-        )
-        print(f"📧 Email sent to {order.customer_email}")
-        return True
-    except Exception as e:
-        print(f"❌ Email error: {str(e)}")
-        return False
-
     
 
 
