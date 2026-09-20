@@ -44,18 +44,17 @@ ALLOWED_HOSTS = [
     ".vercel.app",
     "react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "react-1z36.vercel.app",
+    "https://react-seven-smoky-17.vercel.app",
+    "https://www.sabanosh.store",   
+    "https://sabanosh.store", 
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-d7f28a.up.railway.app",
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
-]
-# CORS_ALLOWED_ORIGINS
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
-    "https://react-1z36.vercel.app",
+    "https://www.sabanosh.store",   
+    "https://sabanosh.store", 
 ]
 # Application definition
 
