@@ -49,11 +49,30 @@ try:
 except admin.sites.NotRegistered:
     pass
 
+from django.utils.html import format_html
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItems
     extra = 0
-    readonly_fields = ['product_name', 'product_price', 'quantity']
+    readonly_fields = ['product_image_preview', 'product_name', 'product_price', 'quantity']
     can_delete = False
+    fields = ['product_image_preview', 'product_name', 'product_price', 'quantity']
+    
+    def product_image_preview(self, obj):
+        if obj.product and obj.product.images.exists():
+            img_url = obj.product.images.first().image.url
+            return format_html(
+                '<img src="{}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;" />',
+                img_url
+            )
+        elif obj.image:
+            return format_html(
+                '<img src="{}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;" />',
+                obj.image
+            )
+        return "No Image"
+    
+    product_image_preview.short_description = "Image"
 
 
 class OrderAdmin(admin.ModelAdmin):
