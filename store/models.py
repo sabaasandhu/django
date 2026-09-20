@@ -98,26 +98,26 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.order_number} - {self.customer_name}"
     
-def save(self, *args, **kwargs):
-    if not self.order_number:
-        import datetime
-        date_str = datetime.datetime.now().strftime('%Y%m%d')
-        last_order = Order.objects.filter(
-            order_number__startswith=f'ORD{date_str}'
-        ).order_by('-id').first()
-        
-        if last_order and last_order.order_number:
-            try:
-                last_num = int(last_order.order_number[-4:])
-                new_num = last_num + 1
-            except ValueError:
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            import datetime
+            date_str = datetime.datetime.now().strftime('%Y%m%d')
+            last_order = Order.objects.filter(
+                order_number__startswith=f'ORD{date_str}'
+            ).order_by('-id').first()
+            
+            if last_order and last_order.order_number:
+                try:
+                    last_num = int(last_order.order_number[-4:])
+                    new_num = last_num + 1
+                except ValueError:
+                    new_num = 1
+            else:
                 new_num = 1
-        else:
-            new_num = 1
+            
+            self.order_number = f'ORD{date_str}{new_num:04d}'
         
-        self.order_number = f'ORD{date_str}{new_num:04d}'
-    
-    super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class OrderItems(models.Model):

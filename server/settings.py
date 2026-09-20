@@ -44,12 +44,6 @@ ALLOWED_HOSTS = [
     ".vercel.app",
     "react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "react-1z36.vercel.app",
-    "http://localhost:5173",
-    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
-    "https://react-1z36.vercel.app",
-    "https://react-seven-smoky-17.vercel.app",
-    "https://www.sabanosh.store",  
-    "https://sabanosh.store",       
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -57,13 +51,19 @@ CSRF_TRUSTED_ORIGINS = [
     "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
     "https://react-1z36.vercel.app",
 ]
-
+# CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://react-1z36-lm1r8qm7u-sabaasandhus-projects.vercel.app",
+    "https://react-1z36.vercel.app",
+]
+# Application definition
 
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
-    'rest_framework_simplejwt',  
-    'cloudinary_storage',  
+    'rest_framework_simplejwt',  # ✅ یہ app بھی شامل کریں
+    # 'cloudinary_storage',  
     'cloudinary',   
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,7 +88,6 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
