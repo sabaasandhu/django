@@ -179,15 +179,30 @@ def fetchUnstitchDetails(request, id):
 @api_view(['POST'])
 def registerUser(request):
     email = request.data.get("email")
-    username = request.data.get("username")
-
+    username = request.data.get("username") or request.data.get("name")
+    password = request.data.get("password")
+    
+    if not username:
+        return Response({"detail": "Username is required"}, status=400)
+    
+    if not email:
+        return Response({"detail": "Email is required"}, status=400)
+    
+    if not password:
+        return Response({"detail": "Password is required"}, status=400)
+    
     if User.objects.filter(email=email).exists():
         return Response({"detail": "User with this email already exists"}, status=400)
-
+    
     if User.objects.filter(username=username).exists():
         return Response({"detail": "Username already taken"}, status=400)
-
-    serializer = RegisterSerializer(data=request.data)
+    
+    serializer = RegisterSerializer(data={
+        "username": username,
+        "email": email,
+        "password": password,
+    })
+    
     if serializer.is_valid():
         user = serializer.save()
         refresh = RefreshToken.for_user(user)
@@ -196,7 +211,7 @@ def registerUser(request):
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         })
-
+    
     return Response(serializer.errors, status=400)
 
 
