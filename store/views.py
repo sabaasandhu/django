@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import generics
 from django.conf import settings
+import resend
+import os
 
 
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -74,26 +76,51 @@ Thank you for shopping!
 
 
 def send_order_email(order):
-    """
-    Fallback email function
-    """
+    """Order confirmation email via Resend"""
     try:
-        subject = f"Order Confirmed - {order.order_number}"
-        message = f"""
-        Dear {order.customer_name},
+        resend.api_key = os.environ.get('RESEND_API_KEY')
         
-        Your order #{order.order_number} has been confirmed!
+        if not resend.api_key:
+            print("📧 Resend API key missing")
+            return False
         
-        Total Amount: Rs. {order.total_price}
-        Order Status: {order.get_order_status_display()}
-        
-        Your order will be delivered in 3-5 working days.
-        
-        Thank you for shopping with us!
-        
-        Regards,
-        Sabanosh Team
+        html_content = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #14b8a6, #10b981); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                <h1 style="color: white; margin: 0;">Order Confirmed! ✅</h1>
+            </div>
+            <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
+                <p>Dear <strong>{order.customer_name}</strong>,</p>
+                <p>Your order <strong>#{order.order_number}</strong> has been confirmed!</p>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <p style="margin: 5px 0;"><strong>Total Amount:</strong> Rs. {order.total_price}</p>
+                    <p style="margin: 5px 0;"><strong>Status:</strong> {order.get_order_status_display()}</p>
+                    <p style="margin: 5px 0;"><strong>Delivery:</strong> 3-5 working days</p>
+                </div>
+                
+                <p>Thank you for shopping with us!</p>
+                <p>Regards,<br><strong>Sabanosh Team</strong></p>
+            </div>
+        </body>
+        </html>
         """
+        
+        params = {
+            "from": "Sabanosh <onboarding@resend.dev>",
+            "to": [order.customer_email],
+            "subject": f"Order Confirmed - {order.order_number}",
+            "html": html_content,
+        }
+        
+        email = resend.Emails.send(params)
+        print(f"📧 Email sent to {order.customer_email}")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Email error: {str(e)}")
+        return False
     
 
 
