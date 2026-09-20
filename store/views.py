@@ -100,7 +100,7 @@ Sabanosh Team
             message,
             from_email,
             [order.customer_email],
-            fail_silently=False,
+            fail_silently=True,
         )
         print(f"📧 Email sent to {order.customer_email}")
         return True
@@ -566,7 +566,7 @@ class ForgotPasswordAPIView(generics.GenericAPIView):
                 message=f"Click this link to reset your password: {reset_link}",
                 from_email=from_email,
                 recipient_list=[email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             return Response({
